@@ -12,9 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-background text-foreground"> 
-          <NavBar />
+    <html lang="en">
+      <body className= "bg-black text-white min-h-screen">
+        <NavBar />
         <main>{children}</main>
       </body>
     </html>
