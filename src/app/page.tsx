@@ -1,8 +1,9 @@
-// app/page.tsx
+import { Hero } from "../components/hero/hero";
+
 export default function HomePage() {
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold">Welcome to Bhabhi Deck!</h1>
-    </div>
+    <main>
+      <Hero />
+    </main>
   );
 }
