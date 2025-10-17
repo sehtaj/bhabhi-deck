@@ -1,18 +1,21 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/src/lib/utils";
-const inter = Inter({ subsets: ["latin"] });
+import "../styles/globals.css";
+import { NavBar} from "./navbar"
 
+export const metadata = {
+  title: "Bhabhi Deck",
+  description: "Online multiplayer game",
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="pt-br" suppressHydrationWarning>
-      <body className={cn("min-h-screen bg-background bg-white", inter.className)}>
-          {children}
+    <html lang="en">
+      <body className= "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white min-h-screen">
+        <NavBar />
+        <main>{children}</main>
       </body>
     </html>
   );
