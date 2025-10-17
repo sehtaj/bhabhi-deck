@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { NavBar} from "./navbar"
+import { NavBar } from "./navbar"
 
 export const metadata = {
   title: "Bhabhi Deck",
@@ -12,9 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className= "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white min-h-screen">
-        <NavBar />
+    <html lang="en" className="dark">
+      <body className="bg-background text-foreground"> 
+          <NavBar />
         <main>{children}</main>
       </body>
     </html>
