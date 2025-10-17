@@ -1,56 +1,52 @@
-# Shadcn Landing Page Template
+# Bhabhi-Deck
 
-## <a href="https://ui.shadcn.com/" target="_blank">Shadcn</a> + <a href="https://nextjs.org/" target="_blank">Next.js</a> + <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a> + <a href="https://tailwindcss.com/" target="_blank">Tailwind</a>.
+**Bhabhi-Deck** is an online multiplayer card game built with **Next.js 13**, **React**, and **Tailwind CSS**. This repository contains the game client and a landing page for players.
 
-### This is a project conversion <a href="https://github.com/leoMirandaa/shadcn-vue-landing-page" target="_blank">Shadcn-Vue</a> to NextJS
+---
 
-![Alt text](./public/demo-img.jpg)
+## Table of Contents
 
-## Sections
+- [Overview](#overview)  
+- [Features](#features)  
+- [Installation](#installation)  
 
-- [x] Navbar
-- [x] Sidebar(mobile)
-- [x] Hero
-- [x] Sponsors
-- [x] Benefits
-- [x] Features
-- [x] Testimonials
-- [x] Team
-- [x] Community
-- [x] Contact
-- [x] Pricing
-- [x] Frequently Asked Questions(FAQ)
-- [x] Services
-- [x] Footer
+---
+
+## Overview
+
+Bhabhi Deck allows players to enjoy an online multiplayer card game in a sleek, modern interface.
+
+---
 
 ## Features
 
-- [x] Fully Responsive Design
-- [x] User Friendly Navigation
-- [x] Dark Mode
+- Modern responsive landing page 
+- Hero section highlighting game features  
+- Navigation bar for Home, Tutorial, Profile, Settings, and Play  
+- ShadCN UI buttons for consistent design  
+- Modular component structure for scalability  
 
-## How to install
+---
 
-1. Clone this repositoy:
+## Installation
+
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/nobruf/shadcn-landing-page.git
+git clone https://github.com/yourusername/bhabhi-deck.git
+cd bhabhi-deck
 ```
-
-2. Go into project
-
-```bash
-cd shadcn-landing-page
-```
-
-3. Install dependencies
-
-```bash
+2.	Install dependencies:
+   ```bash
 npm install
+# or
+pnpm install
 ```
-
-4. Run project
-
+3. Run the development server:
 ```bash
 npm run dev
+# or
+pnpm dev
 ```
+4.	Open http://localhost:3000 in your browser.
+
