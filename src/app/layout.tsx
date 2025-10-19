@@ -1,6 +1,7 @@
 // app/layout.tsx
 import "styles/globals.css";
 import { ReactNode } from 'react';
+import { NavBar } from "./navbar";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -13,7 +14,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {/* Grid pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
         </div>
-
+        <NavBar/>
         {children}
       </body>
     </html>
