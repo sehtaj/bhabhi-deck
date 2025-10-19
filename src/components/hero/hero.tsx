@@ -1,44 +1,126 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Gamepad2, Users, Trophy } from 'lucide-react';
+import { Gamepad2, Users, Trophy, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Gamepad from '@mui/icons-material/SportsEsports';
 
 export default function Hero() {
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-red-950/20 to-black" />
+    <div className="relative min-h-screen overflow-hidden">
+
+      {/* Floating Cards */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Ace of Spades - Top Left */}
         <motion.div
-          className="absolute top-20 left-20 w-72 h-72 bg-red-600/10 rounded-full blur-3xl"
+          className="absolute top-32 left-12 opacity-25"
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
+            y: [0, -30, 0],
+            rotate: [-5, 5, -5],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
+            <div className="absolute top-3 left-3">
+              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-500 text-3xl -mt-1">♠</div>
+            </div>
+            <div className="text-red-500 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">♠</div>
+            <div className="absolute bottom-3 right-3 rotate-180">
+              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-500 text-3xl -mt-1">♠</div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
+          </div>
+        </motion.div>
+
+        {/* Ace of Hearts - Top Right */}
+        <motion.div
+          className="absolute top-24 right-16 opacity-25"
+          animate={{
+            y: [0, 30, 0],
+            rotate: [5, -5, 5],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5
+          }}
+        >
+          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
+            <div className="absolute top-3 left-3">
+              <div className="text-red-600 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-600 text-3xl -mt-1">♥</div>
+            </div>
+            <div className="text-red-600 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(220,38,38,0.3)]">♥</div>
+            <div className="absolute bottom-3 right-3 rotate-180">
+              <div className="text-red-600 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-600 text-3xl -mt-1">♥</div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
+          </div>
+        </motion.div>
+
+        {/* Ace of Diamonds - Bottom Left */}
+        <motion.div
+          className="absolute bottom-32 left-24 opacity-25"
+          animate={{
+            y: [0, -25, 0],
+            rotate: [3, -3, 3],
           }}
           transition={{
             duration: 8,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
+            delay: 1
           }}
-        />
+        >
+          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
+            <div className="absolute top-3 left-3">
+              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-500 text-3xl -mt-1">♦</div>
+            </div>
+            <div className="text-red-500 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">♦</div>
+            <div className="absolute bottom-3 right-3 rotate-180">
+              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-500 text-3xl -mt-1">♦</div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
+          </div>
+        </motion.div>
+
+        {/* Ace of Clubs - Bottom Right */}
         <motion.div
-          className="absolute bottom-20 right-20 w-96 h-96 bg-red-700/10 rounded-full blur-3xl"
+          className="absolute bottom-24 right-12 opacity-25"
           animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
+            y: [0, 25, 0],
+            rotate: [-3, 3, -3],
           }}
           transition={{
-            duration: 10,
+            duration: 7.5,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
+            delay: 1.5
           }}
-        />
+        >
+          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
+            <div className="absolute top-3 left-3">
+              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-500 text-3xl -mt-1">♣</div>
+            </div>
+            <div className="text-red-500 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">♣</div>
+            <div className="absolute bottom-3 right-3 rotate-180">
+              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
+              <div className="text-red-500 text-3xl -mt-1">♣</div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
+          </div>
+        </motion.div>
       </div>
-
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8">
@@ -70,7 +152,7 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg sm:text-xl text-gray-400 mb-12 max-w-2xl mx-auto"
           >
-            Experience the thrill of competitive card gaming with players worldwide. 
+            Experience the thrill of competitive card gaming with players worldwide.
             Real-time multiplayer, stunning visuals, and endless strategic possibilities.
           </motion.p>
 
@@ -83,9 +165,9 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-600 hover:to-red-800 text-white border-0 px-8 py-6 text-lg font-semibold shadow-lg shadow-red-900/50 hover:shadow-xl hover:shadow-red-900/70 transition-all duration-200"
+              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white border-0 px-8 py-6 text-lg font-semibold shadow-lg shadow-red-900/50 hover:shadow-xl hover:shadow-red-900/70 transition-all duration-300"
             >
-              <Gamepad2 className="mr-2 h-6 w-6 scale-150" />
+              <Gamepad2 className="mr-2 h-5 w-5" />
               Start Playing
             </Button>
           </motion.div>
@@ -98,8 +180,8 @@ export default function Hero() {
             className="grid grid-cols-3 gap-8 mt-20 max-w-3xl mx-auto"
           >
             {[
-              { icon: Users, label: 'Active Players', value: '1K+' },
-              { icon: Gamepad2, label: 'Games Played', value: '100k+' },
+              { icon: Users, label: 'Active Players', value: '50K+' },
+              { icon: Gamepad2, label: 'Games Played', value: '1M+' },
               { icon: Trophy, label: 'Tournaments', value: '500+' }
             ].map((stat, index) => (
               <motion.div
