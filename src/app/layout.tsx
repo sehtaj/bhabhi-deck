@@ -2,6 +2,7 @@
 import "styles/globals.css";
 import { ReactNode } from 'react';
 import { NavBar } from "./navbar";
+import Footer from "@/components/footer";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -16,6 +17,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         </div>
         <NavBar/>
         {children}
+        <Footer/>
+
       </body>
     </html>
   );

@@ -7,7 +7,6 @@ export default function HomePage() {
     <main>
       <Hero />
       <Features/>
-      <Footer/>
     </main>
   );
 }

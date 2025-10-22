@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Gamepad2, Users, Trophy, Sparkles } from 'lucide-react';
+import { Gamepad2, Users, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -163,13 +164,15 @@ export default function Hero() {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white border-0 px-8 py-6 text-lg font-semibold shadow-lg shadow-red-900/50 hover:shadow-xl hover:shadow-red-900/70 transition-all duration-300"
-            >
-              <Gamepad2 className="mr-2 h-5 w-5" />
-              Start Playing
-            </Button>
+            <Link href="/room">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white border-0 px-8 py-6 text-lg font-semibold shadow-lg shadow-red-900/50 hover:shadow-xl hover:shadow-red-900/70 transition-all duration-300"
+              >
+                <Gamepad2 className="mr-2 h-5 w-5" />
+                Start Playing
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Stats */}
