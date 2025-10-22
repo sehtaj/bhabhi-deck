@@ -1,4 +1,5 @@
 'use client';
+import Link from "next/link";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -157,11 +158,13 @@ export default function PlayPage() {
           </div>
 
           <div className="space-y-4">
+            <Link href = "/play">
             <Button
               className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 text-lg shadow-lg shadow-red-900/50 hover:scale-105 transition-all"
             >
               Start Game
             </Button>
+            </Link>
             
             <Button
               onClick={handleBackToCreate}
