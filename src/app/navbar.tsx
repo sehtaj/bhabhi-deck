@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 export function NavBar() {
   return (
     <nav className="px-6 py-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50 bg-transparent">
-      <div className="text-2xl font-bold text-white">logo</div>
+      <Link href = "/"><div className="text-2xl font-bold text-white">logo</div></Link>
       <ul className="flex gap-5 items-center">
         <li>
           <Link href="/" className="px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-red-950/50 border border-transparent hover:border-red-900/50 transition-all duration-200">
