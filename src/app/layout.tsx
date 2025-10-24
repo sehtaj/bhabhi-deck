@@ -1,14 +1,17 @@
 // app/layout.tsx
 import "@/styles/globals.css";
 import { ReactNode } from "react";
-import { Inter } from 'next/font/google'
+import { Inter } from "next/font/google"
 import ConditionalNavFooter from "@/components/conditionalNavFooter";
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Bhabhi-Deck',
-  description: 'Multiplayer card platform',
+  title: "Bhabhi-Deck",
+  description: "Multiplayer card platform",
+  icons: {
+    icon: "/logo.svg"
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -21,7 +24,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="fixed inset-0 -z-30 bg-gradient-to-b from-[#000000] to-[#111111]" />
 
         {/* 2️⃣ Center radial glow (soft vignette) */}
-        <div className="fixed inset-0 -z-20 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_60%)]" />
+        <div style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: -20,
+          background: "radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 60%)"
+        }} />
 
         <div>{children}</div>
         <ConditionalNavFooter />
