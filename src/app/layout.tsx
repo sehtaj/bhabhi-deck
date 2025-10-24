@@ -6,6 +6,9 @@ import ConditionalNavFooter from "@/components/conditionalNavFooter";
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <title>Bhabhi-Deck</title>
+      </head>
       <body className="relative bg-black text-white overflow-x-hidden">
         {/* Global Animated Background */}
         <div className="absolute inset-0 -z-10">
