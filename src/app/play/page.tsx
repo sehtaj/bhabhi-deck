@@ -43,9 +43,9 @@ export default function PlayPage() {
 
   const players = [
     { name: "Player 1", position: { top: "-200px", left: "50%", transform: "translateX(-50%)" }, badgeColor: "blue" },
-    { name: "Player 2", position: { top: "50%", right: "0", transform: "translateY(-50%)" }, badgeColor: "purple" },
+    { name: "Player 2", position: { top: "50%", right: "10%", transform: "translateY(-50%)" }, badgeColor: "purple" },
     { name: "You", position: { bottom: "0", left: "50%", transform: "translateX(-50%)" }, badgeColor: "green" },
-    { name: "Player 4", position: { top: "50%", left: "0", transform: "translateY(-50%)" }, badgeColor: "cyan" },
+    { name: "Player 4", position: { top: "50%", left: "10%", transform: "translateY(-50%)" }, badgeColor: "cyan" },
   ];
 
   useEffect(() => {
