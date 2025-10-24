@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export default function PlayLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative bg-black text-white overflow-x-hidden min-h-screen flex flex-col items-center justify-center">
+    <div className="relative text-white overflow-x-hidden min-h-screen flex flex-col items-center justify-center">
       {/* Background layers */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-red-950/20 to-black" />
