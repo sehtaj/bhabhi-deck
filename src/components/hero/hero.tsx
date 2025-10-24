@@ -153,8 +153,7 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg sm:text-xl text-gray-400 mb-12 max-w-2xl mx-auto"
           >
-            Experience the thrill of competitive card gaming with players worldwide.
-            Real-time multiplayer, stunning visuals, and endless strategic possibilities.
+          Challenge friends, master strategies, and rise to the top in every game.
           </motion.p>
 
           {/* CTA Buttons */}

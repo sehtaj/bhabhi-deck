@@ -5,6 +5,22 @@
 html {
   scroll-behavior: smooth;
 }
+body {
+  @apply bg-black text-white relative;
+  background: radial-gradient(
+      ellipse at top,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.95) 60%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
 /* *=========== Default theme =========== */
 /* @layer base {

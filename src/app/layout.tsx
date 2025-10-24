@@ -1,22 +1,27 @@
 // app/layout.tsx
 import "@/styles/globals.css";
 import { ReactNode } from "react";
+import { Inter } from 'next/font/google'
 import ConditionalNavFooter from "@/components/conditionalNavFooter";
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'Bhabhi-Deck',
+  description: 'Multiplayer card platform',
+}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <title>Bhabhi-Deck</title>
-      </head>
-      <body className="relative bg-black text-white overflow-x-hidden">
-        {/* Global Animated Background */}
-        <div className="absolute inset-0 -z-10">
-          {/* Subtle red glow layers */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-red-950/20 to-black" />
-          {/* Grid pattern */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
+    <html lang="en" className="dark">
+      <body
+        className={`${inter.className} relative min-h-screen bg-black text-white overflow-x-hidden`}
+      >
+        {/* 1️⃣ Base dark gradient */}
+        <div className="fixed inset-0 -z-30 bg-gradient-to-b from-[#000000] to-[#111111]" />
+
+        {/* 2️⃣ Center radial glow (soft vignette) */}
+        <div className="fixed inset-0 -z-20 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_0%,transparent_60%)]" />
 
         <div>{children}</div>
         <ConditionalNavFooter />
