@@ -2,7 +2,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { NavBar } from "@/components/layout/navbar";
+import { NavBar } from "@/app/navbar";
 import dynamic from "next/dynamic";
 
 const Footer = dynamic(() => import("components/footer"), { ssr: false });
