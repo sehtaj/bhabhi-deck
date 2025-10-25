@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Gamepad2, Users, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from "next/link";
+import { Typography } from '../ui/typography';
 
 export default function Hero() {
   return (
@@ -133,28 +134,32 @@ export default function Hero() {
         >
 
           {/* Main Heading */}
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6"
+            className="text-center mb-6"
           >
-            <span className="text-white">Play Cards</span>
-            <br />
-            <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
-              Dominate Online
-            </span>
-          </motion.h1>
+            <Typography variant="h1">
+              <span className="text-white">Play Cards</span>
+              <br />
+              <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
+                Dominate Online
+              </span>
+            </Typography>
+          </motion.div>
 
           {/* Description */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-lg sm:text-xl text-gray-400 mb-12 max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto mb-12"
           >
-          Challenge friends, master strategies, and rise to the top in every game.
-          </motion.p>
+            <Typography variant="body" className="text-gray-400 text-center">
+              Challenge friends, master strategies, and rise to the top in every game.
+            </Typography>
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div
@@ -166,10 +171,10 @@ export default function Hero() {
             <Link href="/room">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white border-0 px-8 py-6 text-lg font-semibold shadow-lg shadow-red-900/50 hover:shadow-xl hover:shadow-red-900/70 transition-all duration-300"
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white border-0 px-8 py-6 shadow-lg shadow-red-900/50 hover:shadow-xl hover:shadow-red-900/70 transition-all duration-300"
               >
                 <Gamepad2 className="mr-2 h-5 w-5" />
-                Start Playing
+                <Typography variant="button">Start Playing</Typography>
               </Button>
             </Link>
           </motion.div>
@@ -196,12 +201,12 @@ export default function Hero() {
                 <div className="w-12 h-12 rounded-full bg-red-950/50 border border-red-800/50 flex items-center justify-center mb-2">
                   <stat.icon className="w-6 h-6 text-red-400" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-white">
+                <Typography variant="h5" className="text-white">
                   {stat.value}
-                </div>
-                <div className="text-sm text-gray-500">
+                </Typography>
+                <Typography variant="small" className="text-gray-500">
                   {stat.label}
-                </div>
+                </Typography>
               </motion.div>
             ))}
           </motion.div>

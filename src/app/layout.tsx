@@ -1,10 +1,11 @@
 // app/layout.tsx
 import "@/styles/globals.css";
 import { ReactNode } from "react";
-import { Inter } from "next/font/google"
+import { Inter, Space_Grotesk} from "next/font/google"
 import ConditionalNavFooter from "@/components/conditionalNavFooter";
 
-const inter = Inter({ subsets: ['latin'] })
+export const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+export const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
 
 export const metadata = {
   title: "Bhabhi-Deck",
@@ -18,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.className} relative min-h-screen bg-black text-white overflow-x-hidden`}
+        className={`${inter.className} ${grotesk.variable} relative min-h-screen overflow-x-hidden`}
       >
         {/* 1️⃣ Base dark gradient */}
         <div className="fixed inset-0 -z-30 bg-gradient-to-b from-[#000000] to-[#111111]" />

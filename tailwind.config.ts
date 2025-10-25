@@ -108,7 +108,19 @@ module.exports = {
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			'collapsible-down': 'collapsible-down 0.2s ease-in-out',
   			'collapsible-up': 'collapsible-up 0.2s ease-in-out'
-  		}
+  		},
+		fontFamily: {
+			inter: ["var(--font-inter)"],
+			grotesk: ["var(--font-grotesk)"],
+			roboto: ["var(--font-roboto)"],
+		},
+		fontSize: {
+			h1: ["var(--font-size-h1)", { lineHeight: "var(--line-height-tight)" }],
+			h2: ["var(--font-size-h2)", { lineHeight: "var(--line-height-tight)" }],
+			h3: ["var(--font-size-h3)", { lineHeight: "var(--line-height-normal)" }],
+			body: ["var(--font-size-body)", { lineHeight: "var(--line-height-normal)" }],
+			small: ["var(--font-size-small)", { lineHeight: "var(--line-height-relaxed)" }],
+		},
   	}
   },
   plugins: [animate, require("tailwindcss-animate")],
