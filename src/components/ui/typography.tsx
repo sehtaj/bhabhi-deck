@@ -31,7 +31,7 @@ export function Typography({
     h6: "text-xl md:text-2xl font-grotesk font-medium",
     body: "text-base md:text-lg font-inter font-normal",
     small: "text-sm md:text-base font-inter font-light",
-    button: "text-base md:text-lg font-inter uppercase tracking-wide",
+    button: "text-base md:text-base font-inter tracking-wide",
   };
 
   const tag = {
