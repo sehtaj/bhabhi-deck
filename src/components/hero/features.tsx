@@ -1,47 +1,54 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Zap, Shield, Globe, Sparkles, Crown, Swords } from 'lucide-react';
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { Zap, Shield, Globe, Sparkles, Crown, Swords } from "lucide-react";
+import { Typography } from "@/components/ui/typography";
 
 const features = [
   {
     icon: Zap,
-    title: 'Lightning Fast',
-    description: 'Experience real-time gameplay with zero lag. Our optimized servers ensure every card plays instantly.',
-    gradient: 'from-red-600 to-orange-600'
+    title: "Lightning Fast",
+    description:
+      "Experience real-time gameplay with zero lag. Our optimized servers ensure every card plays instantly.",
+    gradient: "from-red-600 to-orange-600",
   },
   {
     icon: Shield,
-    title: 'Secure & Fair',
-    description: 'Advanced anti-cheat systems and verified random card distribution. Play with confidence.',
-    gradient: 'from-red-600 to-pink-600'
+    title: "Secure & Fair",
+    description:
+      "Advanced anti-cheat systems and verified random card distribution. Play with confidence.",
+    gradient: "from-red-600 to-pink-600",
   },
   {
     icon: Globe,
-    title: 'Global Matchmaking',
-    description: 'Connect with players worldwide. Smart matchmaking ensures balanced and competitive games.',
-    gradient: 'from-red-700 to-red-500'
+    title: "Global Matchmaking",
+    description:
+      "Connect with players worldwide. Smart matchmaking ensures balanced and competitive games.",
+    gradient: "from-red-700 to-red-500",
   },
   {
     icon: Crown,
-    title: 'Ranked Ladder',
-    description: 'Climb the competitive ladder, earn seasonal rewards, and prove you are the ultimate card master.',
-    gradient: 'from-red-800 to-red-600'
+    title: "Ranked Ladder",
+    description:
+      "Climb the competitive ladder, earn seasonal rewards, and prove you are the ultimate card master.",
+    gradient: "from-red-800 to-red-600",
   },
   {
     icon: Sparkles,
-    title: 'Premium Customization',
-    description: 'Unlock stunning card backs, avatars, and emotes. Express your unique style at the table.',
-    gradient: 'from-red-600 to-purple-600'
+    title: "Premium Customization",
+    description:
+      "Unlock stunning card backs, avatars, and emotes. Express your unique style at the table.",
+    gradient: "from-red-600 to-purple-600",
   },
   {
     icon: Swords,
-    title: 'Tournament Mode',
-    description: 'Join daily tournaments with real prizes. Compete against the best and earn your place in history.',
-    gradient: 'from-red-700 to-red-900'
-  }
+    title: "Tournament Mode",
+    description:
+      "Join daily tournaments with real prizes. Compete against the best and earn your place in history.",
+    gradient: "from-red-700 to-red-900",
+  },
 ];
 
 function FeatureCard({ feature, index }: { feature: typeof features[0]; index: number }) {
@@ -58,7 +65,7 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
     >
       {/* Glow Effect */}
       <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-800 rounded-2xl opacity-0 group-hover:opacity-20 blur transition duration-500" />
-      
+
       {/* Card */}
       <div className="relative h-full bg-gradient-to-br from-black via-red-950/20 to-black border border-red-900/30 rounded-2xl p-8 hover:border-red-800/50 transition-all duration-300">
         {/* Icon */}
@@ -71,14 +78,17 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
         </motion.div>
 
         {/* Title */}
-        <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors">
+        <Typography
+          variant="h4"
+          className="text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors"
+        >
           {feature.title}
-        </h3>
+        </Typography>
 
         {/* Description */}
-        <p className="text-gray-400 leading-relaxed">
+        <Typography variant="small" className="text-gray-400 leading-relaxed">
           {feature.description}
-        </p>
+        </Typography>
 
         {/* Decorative Corner */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-red-600/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -95,7 +105,6 @@ export default function Features() {
     <section className="relative py-24 sm:py-32 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 " />
         <motion.div
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/5 rounded-full blur-3xl"
           animate={{
@@ -105,7 +114,7 @@ export default function Features() {
           transition={{
             duration: 12,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
         <motion.div
@@ -117,11 +126,10 @@ export default function Features() {
           transition={{
             duration: 15,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
         />
       </div>
-
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -139,21 +147,21 @@ export default function Features() {
             className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-red-950/50 border border-red-800/50 rounded-full backdrop-blur-sm"
           >
             <Sparkles className="w-4 h-4 text-red-400" />
-            <span className="text-sm text-red-300 font-medium">
+            <Typography variant="small" className="text-red-300 font-medium">
               Why Choose Us
-            </span>
+            </Typography>
           </motion.div>
 
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+          <Typography variant="h2" className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
             <span className="text-white">Unmatched </span>
             <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
               Gaming Experience
             </span>
-          </h2>
+          </Typography>
 
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <Typography variant="body" className="text-xl text-gray-400 max-w-3xl mx-auto">
             Built for competitive players who demand the best. Every feature designed to enhance your gameplay.
-          </p>
+          </Typography>
         </motion.div>
 
         {/* Features Grid */}
