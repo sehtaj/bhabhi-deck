@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
+import { Typography } from "@/components/ui/typography";
 
 export default function Footer() {
   const icons = [
@@ -20,10 +21,12 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="text-white font-semibold text-lg mb-4">About Us</h3>
-          <p className="text-sm leading-relaxed text-gray-500">
+          <Typography variant="h6" className="text-white font-semibold text-lg mb-4">
+            About Us
+          </Typography>
+          <Typography variant="small" className="text-sm leading-relaxed text-gray-500">
             Dive into a world of strategy and skill. Compete, connect, and conquer the deck with players worldwide.
-          </p>
+          </Typography>
         </motion.div>
 
         {/* Socials */}
@@ -32,7 +35,9 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="text-white font-semibold text-lg mb-4">Follow Us</h3>
+          <Typography variant="h6" className="text-white font-semibold text-lg mb-4">
+            Follow Us
+          </Typography>
           <div className="flex gap-4">
             {icons.map(({ Icon, href, alt }, i) => (
               <a
@@ -52,10 +57,16 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-zinc-800 mt-16 pt-6 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600">
-        <p>© {new Date().getFullYear()} Bhabhi Deck. All rights reserved.</p>
+        <Typography variant="small">
+          © {new Date().getFullYear()} Bhabhi Deck. All rights reserved.
+        </Typography>
         <div className="flex gap-6 mt-4 sm:mt-0">
-          <a href="#" className="hover:text-red-400 transition-colors">Privacy</a>
-          <a href="#" className="hover:text-red-400 transition-colors">Terms</a>
+          <Typography variant="small">
+            <a href="#" className="hover:text-red-400 transition-colors">Privacy</a>
+          </Typography>
+          <Typography variant="small">
+            <a href="#" className="hover:text-red-400 transition-colors">Terms</a>
+          </Typography>
         </div>
       </div>
     </footer>
