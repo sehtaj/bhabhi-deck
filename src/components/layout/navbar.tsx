@@ -7,7 +7,7 @@ import { Typography } from "@/components/ui/typography";
 
 export function NavBar() {
   return (
-    <nav className="px-6 py-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-md">
+    <nav className="px-6 py-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50 bg-transparent">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2">
         <Image
