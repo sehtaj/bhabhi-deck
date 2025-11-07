@@ -16,8 +16,11 @@ datasource db {
 
 model User {
   id                Int       @id @default(autoincrement())
+<<<<<<< HEAD
   supabaseId        String?   @unique
   username          String?   @unique
+=======
+>>>>>>> bc6b70c (  feat: Set up dev/main branch and refine project documentation)
   name              String
   email             String?   @unique
   avatarUrl         String?
@@ -29,11 +32,15 @@ model User {
   totalLosses       Int       @default(0)
   averageRank       Float?    @default(0)
   participants      Participant[]
+<<<<<<< HEAD
   createdGames      Game[]    @relation("createdGames")
+=======
+>>>>>>> bc6b70c (  feat: Set up dev/main branch and refine project documentation)
   stats             UserStats?
 }
 
 model Game {
+<<<<<<< HEAD
   id              Int          @id @default(autoincrement())
   code            String       @unique
   status          String       @default("waiting") // waiting, in_progress, finished, cancelled
@@ -50,12 +57,24 @@ model Game {
   createdBy       Int?
   creator         User?        @relation(fields: [createdBy], references: [id], name: "createdGames")
   participants    Participant[]
+=======
+  id           Int          @id @default(autoincrement())
+  code         String        @unique
+  status       String        @default("waiting") // waiting, in_progress, finished
+  createdAt    DateTime      @default(now())
+  startedAt    DateTime?
+  endedAt      DateTime?
+  deck         Json
+  discardPile  Json?
+  participants Participant[]
+>>>>>>> bc6b70c (  feat: Set up dev/main branch and refine project documentation)
 }
 
 model Participant {
   id        Int       @id @default(autoincrement())
   user      User      @relation(fields: [userId], references: [id])
   userId    Int
+<<<<<<< HEAD
   game      Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
   gameId    Int
   hand      Json
@@ -69,6 +88,14 @@ model Participant {
 
   @@unique([gameId, position])
   @@unique([gameId, userId])
+=======
+  game      Game      @relation(fields: [gameId], references: [id])
+  gameId    Int
+  hand      Json
+  isWinner  Boolean?
+  rank      Int?
+  joinedAt  DateTime  @default(now())
+>>>>>>> bc6b70c (  feat: Set up dev/main branch and refine project documentation)
 }
 
 model UserStats {
