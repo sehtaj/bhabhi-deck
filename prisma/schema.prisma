@@ -13,3 +13,71 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                Int       @id @default(autoincrement())
+  supabaseId        String?   @unique
+  username          String?   @unique
+  name              String
+  email             String?   @unique
+  avatarUrl         String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  lastPlayedAt      DateTime?
+  totalGamesPlayed  Int       @default(0)
+  totalWins         Int       @default(0)
+  totalLosses       Int       @default(0)
+  averageRank       Float?    @default(0)
+  participants      Participant[]
+  createdGames      Game[]    @relation("createdGames")
+  stats             UserStats?
+}
+
+model Game {
+  id              Int          @id @default(autoincrement())
+  code            String       @unique
+  status          String       @default("waiting") // waiting, in_progress, finished, cancelled
+  createdAt       DateTime     @default(now())
+  startedAt       DateTime?
+  endedAt         DateTime?
+  maxPlayers      Int          @default(4)
+  currentPlayers  Int          @default(0)
+  currentTurn     Int?         // userId of current player
+  turnOrder       Json?        // Array of userIds
+  currentRound    Int          @default(1)
+  deck            Json
+  discardPile     Json?
+  createdBy       Int?
+  creator         User?        @relation(fields: [createdBy], references: [id], name: "createdGames")
+  participants    Participant[]
+}
+
+model Participant {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  game      Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  gameId    Int
+  hand      Json
+  position  Int       // 0-3 for 4 players
+  isReady   Boolean   @default(false)
+  isWinner  Boolean?
+  rank      Int?
+  score     Int       @default(0)
+  joinedAt  DateTime  @default(now())
+  leftAt    DateTime?
+
+  @@unique([gameId, position])
+  @@unique([gameId, userId])
+}
+
+model UserStats {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int      @unique
+  gamesPlayed Int      @default(0)
+  wins        Int      @default(0)
+  losses      Int      @default(0)
+  averageRank Float?   @default(0)
+  updatedAt   DateTime @updatedAt
+}
