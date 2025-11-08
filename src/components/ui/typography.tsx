@@ -2,16 +2,16 @@
 
 import React, { ReactNode } from "react";
 
-interface TypographyProps {
-  variant?: 
-    | "h1" 
-    | "h2" 
-    | "h3" 
+export interface TypographyProps {
+  variant?:
+    | "h1"
+    | "h2"
+    | "h3"
     | "h4"
     | "h5"
     | "h6"
-    | "body" 
-    | "small" 
+    | "body"
+    | "small"
     | "button";
   children: ReactNode;
   className?: string;
