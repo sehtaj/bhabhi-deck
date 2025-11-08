@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -60,14 +61,17 @@ export function PlayingCard({
       )}
       {...props}
     >
-      <img
+      <Image
         src={cardSrc}
         alt={isBackFacing ? 'Card back' : cardName}
+        width={100}
+        height={150}
         className={cn(
           'rounded-xl shadow border border-slate-700/30 select-none',
           sizeMap[size]
         )}
         draggable={false}
+        priority={false}
       />
     </Component>
   );
