@@ -5,6 +5,8 @@ import { Gamepad2, Users, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from "next/link";
 import { Typography } from '../ui/typography';
+import { GradientText } from '../ui/gradient-text';
+import { FloatingCard } from '../decorative/floating-card';
 
 export default function Hero() {
   return (
@@ -12,116 +14,48 @@ export default function Hero() {
 
       {/* Floating Cards */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Ace of Spades - Top Left */}
-        <motion.div
-          className="absolute top-32 left-12 opacity-25"
-          animate={{
-            y: [0, -30, 0],
-            rotate: [-5, 5, -5],
-          }}
-          transition={{
+        <FloatingCard
+          suit="spades"
+          position={{ top: '8rem', left: '3rem' }}
+          animationConfig={{
+            yRange: [0, -30, 0],
+            rotateRange: [-5, 5, -5],
             duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
           }}
-        >
-          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
-            <div className="absolute top-3 left-3">
-              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-500 text-3xl -mt-1">♠</div>
-            </div>
-            <div className="text-red-500 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">♠</div>
-            <div className="absolute bottom-3 right-3 rotate-180">
-              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-500 text-3xl -mt-1">♠</div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
-          </div>
-        </motion.div>
+        />
 
-        {/* Ace of Hearts - Top Right */}
-        <motion.div
-          className="absolute top-24 right-16 opacity-25"
-          animate={{
-            y: [0, 30, 0],
-            rotate: [5, -5, 5],
-          }}
-          transition={{
+        <FloatingCard
+          suit="hearts"
+          position={{ top: '6rem', right: '4rem' }}
+          animationConfig={{
+            yRange: [0, 30, 0],
+            rotateRange: [5, -5, 5],
             duration: 7,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 0.5
+            delay: 0.5,
           }}
-        >
-          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
-            <div className="absolute top-3 left-3">
-              <div className="text-red-600 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-600 text-3xl -mt-1">♥</div>
-            </div>
-            <div className="text-red-600 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(220,38,38,0.3)]">♥</div>
-            <div className="absolute bottom-3 right-3 rotate-180">
-              <div className="text-red-600 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-600 text-3xl -mt-1">♥</div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
-          </div>
-        </motion.div>
+        />
 
-        {/* Ace of Diamonds - Bottom Left */}
-        <motion.div
-          className="absolute bottom-32 left-24 opacity-25"
-          animate={{
-            y: [0, -25, 0],
-            rotate: [3, -3, 3],
-          }}
-          transition={{
+        <FloatingCard
+          suit="diamonds"
+          position={{ bottom: '8rem', left: '6rem' }}
+          animationConfig={{
+            yRange: [0, -25, 0],
+            rotateRange: [3, -3, 3],
             duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
+            delay: 1,
           }}
-        >
-          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
-            <div className="absolute top-3 left-3">
-              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-500 text-3xl -mt-1">♦</div>
-            </div>
-            <div className="text-red-500 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">♦</div>
-            <div className="absolute bottom-3 right-3 rotate-180">
-              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-500 text-3xl -mt-1">♦</div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
-          </div>
-        </motion.div>
+        />
 
-        {/* Ace of Clubs - Bottom Right */}
-        <motion.div
-          className="absolute bottom-24 right-12 opacity-25"
-          animate={{
-            y: [0, 25, 0],
-            rotate: [-3, 3, -3],
-          }}
-          transition={{
+        <FloatingCard
+          suit="clubs"
+          position={{ bottom: '6rem', right: '3rem' }}
+          animationConfig={{
+            yRange: [0, 25, 0],
+            rotateRange: [-3, 3, -3],
             duration: 7.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1.5
+            delay: 1.5,
           }}
-        >
-          <div className="w-36 h-52 bg-gradient-to-br from-zinc-900 via-black to-zinc-950 border border-red-500/30 rounded-xl shadow-2xl shadow-red-900/30 p-4 relative backdrop-blur-sm">
-            <div className="absolute top-3 left-3">
-              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-500 text-3xl -mt-1">♣</div>
-            </div>
-            <div className="text-red-500 text-7xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">♣</div>
-            <div className="absolute bottom-3 right-3 rotate-180">
-              <div className="text-red-500 text-2xl font-bold tracking-tight">A</div>
-              <div className="text-red-500 text-3xl -mt-1">♣</div>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-red-950/20 to-transparent rounded-xl" />
-          </div>
-        </motion.div>
+        />
       </div>
 
       {/* Content */}
@@ -143,9 +77,9 @@ export default function Hero() {
             <Typography variant="h1">
               <span className="text-white">Play Cards</span>
               <br />
-              <span className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent">
+              <GradientText variant="red">
                 Dominate Online
-              </span>
+              </GradientText>
             </Typography>
           </motion.div>
 

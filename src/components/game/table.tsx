@@ -2,6 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { PlayingCard } from "./playing-card";
 
 export type CardType = {
   id: number;
@@ -91,7 +92,13 @@ export default function Table({ cards, getPlayerCardPosition }: TableProps) {
                   className="absolute top-1/2 left-1/2"
                   style={{ transform: "translate(-50%, -50%) scale(0.85)", zIndex: 10 + index }}
                 >
-                  <img src="/cards/card_back.jpg" alt="Card back" className="w-16 h-24 rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.8)] border border-slate-700/30 object-cover" />
+                  <PlayingCard
+                    cardName="card_back"
+                    isBackFacing={true}
+                    isInteractive={false}
+                    size="md"
+                    className="shadow-[0_8px_32px_rgba(0,0,0,0.8)]"
+                  />
                 </motion.div>
               );
             })}
