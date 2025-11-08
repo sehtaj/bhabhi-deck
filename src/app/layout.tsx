@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 import { Inter, Space_Grotesk} from "next/font/google"
 import ConditionalNavFooter from "@/components/conditionalNavFooter";
 
-export const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-export const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" });
 
 export const metadata = {
   title: "Bhabhi-Deck",
