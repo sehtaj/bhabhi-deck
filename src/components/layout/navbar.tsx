@@ -30,7 +30,7 @@ export function NavBar() {
           height={60}
         />
         <Typography variant="h6" className="text-white">
-          Play Cards
+          Bhabhi-Deck
         </Typography>
       </Link>
 
@@ -60,15 +60,6 @@ export function NavBar() {
               </Link>
             </li>
 
-            {/* User Avatar */}
-            <li>
-              <Link href="/profile">
-                <div className="w-10 h-10 rounded-full bg-red-900/40 border-2 border-red-600/50 shadow-[0_0_15px_rgba(255,0,0,0.3)] flex items-center justify-center text-sm font-bold text-red-500 hover:border-red-500 hover:shadow-[0_0_20px_rgba(255,0,0,0.5)] transition-all cursor-pointer">
-                  {user.email?.charAt(0).toUpperCase() || 'U'}
-                </div>
-              </Link>
-            </li>
-
             {/* Logout Button */}
             <li>
               <Button
@@ -87,7 +78,7 @@ export function NavBar() {
           <li>
             <Link href="/login" passHref>
               <Button className="bg-red-600 text-white hover:bg-red-700">
-                <Typography variant="button" className="text-white">
+                <Typography variant="small" className="text-white">
                   Login
                 </Typography>
               </Button>
