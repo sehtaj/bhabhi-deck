@@ -35,7 +35,7 @@ export function PlayingCard({
   hoverEffect = 'lift',
   motionProps = {},
 }: PlayingCardProps) {
-  const cardSrc = isBackFacing ? '/cards/back.svg' : `/cards/${cardName}.svg`;
+  const cardSrc = isBackFacing ? '/cards/card_back.jpg' : `/cards/${cardName}.svg`;
 
   const hoverVariants = {
     scale: { scale: 1.1 },
