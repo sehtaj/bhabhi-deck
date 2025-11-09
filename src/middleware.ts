@@ -34,20 +34,6 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Protected routes that require authentication
-  const immediateRedirectRoutes = ['/play', '/room', '/profile']
-  const requiresImmediateRedirect = immediateRedirectRoutes.some((route) =>
-    request.nextUrl.pathname.startsWith(route)
-  )
-
-  // Redirect to login if accessing protected routes without auth
-  if (requiresImmediateRedirect && !user) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    url.searchParams.set('redirectTo', request.nextUrl.pathname)
-    return NextResponse.redirect(url)
-  }
-
   // Redirect to homepage if accessing login while authenticated
   if (request.nextUrl.pathname === '/login' && user) {
     const url = request.nextUrl.clone()
