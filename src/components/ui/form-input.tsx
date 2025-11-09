@@ -32,7 +32,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           ref={ref}
           type={inputType}
           className={`
-            w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500
+            w-full px-4 py-3 bg-black border border-gray-700 rounded-lg text-white placeholder-gray-500
             focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent
             transition-all duration-200 hover:border-gray-600
             disabled:opacity-50 disabled:cursor-not-allowed
