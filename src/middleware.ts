@@ -34,13 +34,13 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Only /play requires immediate redirect
-  const immediateRedirectRoutes = ['/play']
+  // Protected routes that require authentication
+  const immediateRedirectRoutes = ['/play', '/room', '/profile']
   const requiresImmediateRedirect = immediateRedirectRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route)
   )
 
-  // Redirect to login if accessing /play without auth
+  // Redirect to login if accessing protected routes without auth
   if (requiresImmediateRedirect && !user) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
