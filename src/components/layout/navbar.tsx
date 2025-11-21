@@ -5,11 +5,15 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useAuth } from "@/hooks/useAuth";
+import { useUserProfile } from "@/hooks/useUserProfile";
+import { Avatar } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 export function NavBar() {
   const { user, loading } = useAuth();
+  const { profile } = useUserProfile();
   const router = useRouter();
   const supabase = createClient();
 
@@ -48,35 +52,34 @@ export function NavBar() {
         </li>
 
         {!loading && user && (
-          <>
-            <li>
-              <Link
-                href="/profile"
-                className="px-4 py-2 rounded-lg hover:bg-red-950/50 border border-transparent hover:border-red-900/50 transition-all duration-200"
-              >
-                <Typography variant="small" className="text-gray-300 hover:text-white">
+          <li>
+            <DropdownMenu
+              trigger={
+                <Avatar
+                  src={profile?.avatarUrl}
+                  alt={profile?.name || 'User'}
+                  fallback={profile?.name || profile?.username || 'U'}
+                  size="md"
+                />
+              }
+            >
+              <DropdownMenuItem onClick={() => router.push('/profile')}>
+                <Typography variant="small" className="text-gray-300">
                   Profile
                 </Typography>
-              </Link>
-            </li>
-
-            {/* Logout Button */}
-            <li>
-              <Button
-                onClick={handleSignOut}
-                className="bg-red-600/80 text-white hover:bg-red-700"
-              >
-                <Typography variant="button" className="text-white">
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleSignOut}>
+                <Typography variant="small" className="text-gray-300">
                   Logout
                 </Typography>
-              </Button>
-            </li>
-          </>
+              </DropdownMenuItem>
+            </DropdownMenu>
+          </li>
         )}
 
         {!loading && !user && (
           <li>
-            <Link href="/login" passHref>
+            <Link href="/login?redirectTo=/" passHref>
               <Button className="bg-red-600 text-white hover:bg-red-700">
                 <Typography variant="small" className="text-white">
                   Login
