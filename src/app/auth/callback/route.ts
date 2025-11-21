@@ -23,14 +23,13 @@ export async function GET(request: NextRequest) {
             where: { supabaseId: supabaseUser.id },
           })
 
-          // If user doesn't exist, create them
+          // If user doesn't exist, create them without username
           if (!user) {
-            await prisma.user.create({
+            user = await prisma.user.create({
               data: {
                 supabaseId: supabaseUser.id,
                 email: supabaseUser.email,
                 name: supabaseUser.user_metadata?.full_name || supabaseUser.email?.split('@')[0] || 'Anonymous',
-                username: supabaseUser.user_metadata?.username || supabaseUser.email?.split('@')[0],
                 avatarUrl: supabaseUser.user_metadata?.avatar_url,
               },
             })
@@ -45,6 +44,11 @@ export async function GET(request: NextRequest) {
                 lastPlayedAt: new Date(),
               },
             })
+          }
+
+          // Check if user needs to set up username
+          if (!user.username) {
+            return NextResponse.redirect(`${origin}/setup-username?redirectTo=${encodeURIComponent(redirectTo)}`)
           }
         } catch (error) {
           console.error('Error syncing user to Prisma:', error)
