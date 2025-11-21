@@ -46,7 +46,15 @@ function LoginForm() {
 
         if (error) throw error
 
-        router.push(redirectTo)
+        // Check if user needs to set up username
+        const checkResponse = await fetch('/api/user/check-username')
+        const checkData = await checkResponse.json()
+
+        if (!checkData.hasUsername) {
+          router.push(`/setup-username?redirectTo=${encodeURIComponent(redirectTo)}`)
+        } else {
+          router.push(redirectTo)
+        }
         router.refresh()
       }
     } catch (error: any) {
