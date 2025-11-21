@@ -29,7 +29,24 @@ export default function SetupUsernamePage() {
   const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_OPTIONS[0])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [usernameValid, setUsernameValid] = useState<boolean | null>(null)
   const router = useRouter()
+
+  // Real-time username validation
+  const validateUsername = (value: string) => {
+    const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/
+    if (value.length === 0) {
+      setUsernameValid(null)
+      return
+    }
+    setUsernameValid(usernameRegex.test(value))
+  }
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setUsername(value)
+    validateUsername(value)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -125,19 +142,41 @@ export default function SetupUsernamePage() {
                 <label htmlFor="username" className="block text-sm font-medium text-zinc-300 mb-2">
                   Username
                 </label>
-                <FormInput
-                  id="username"
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Enter your username"
-                  className="text-base"
-                  required
-                  minLength={3}
-                  maxLength={20}
-                />
-                <p className="text-xs text-zinc-500 mt-2">
-                  3-20 characters, letters, numbers, and underscores only
+                <div className="relative">
+                  <FormInput
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={handleUsernameChange}
+                    placeholder="Enter your username"
+                    className={`text-base pr-10 ${
+                      usernameValid === false ? 'border-red-500 focus:ring-red-500' :
+                      usernameValid === true ? 'border-green-500 focus:ring-green-500' : ''
+                    }`}
+                    required
+                    minLength={3}
+                    maxLength={20}
+                  />
+                  {usernameValid !== null && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      {usernameValid ? (
+                        <Icon icon="solar:check-circle-bold" className="w-5 h-5 text-green-500" />
+                      ) : (
+                        <Icon icon="solar:close-circle-bold" className="w-5 h-5 text-red-500" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                <p className={`text-xs mt-2 ${
+                  usernameValid === false ? 'text-red-400' :
+                  usernameValid === true ? 'text-green-400' :
+                  'text-zinc-500'
+                }`}>
+                  {usernameValid === false
+                    ? 'Invalid format: use 3-20 characters (letters, numbers, underscores)'
+                    : usernameValid === true
+                    ? 'Username format is valid!'
+                    : '3-20 characters, letters, numbers, and underscores only'}
                 </p>
               </div>
 
@@ -145,7 +184,7 @@ export default function SetupUsernamePage() {
 
               <Button
                 type="submit"
-                disabled={loading || !username.trim()}
+                disabled={loading || !username.trim() || usernameValid === false}
                 className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white py-5 text-base font-medium"
               >
                 {loading ? (
