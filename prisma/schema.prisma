@@ -34,38 +34,49 @@ model User {
 }
 
 model Game {
-  id              Int          @id @default(autoincrement())
-  code            String       @unique
-  status          String       @default("waiting") // waiting, in_progress, finished, cancelled
-  createdAt       DateTime     @default(now())
-  startedAt       DateTime?
-  endedAt         DateTime?
-  maxPlayers      Int          @default(4)
-  currentPlayers  Int          @default(0)
-  currentTurn     Int?         // userId of current player
-  turnOrder       Json?        // Array of userIds
-  currentRound    Int          @default(1)
-  deck            Json
-  discardPile     Json?
-  createdBy       Int?
-  creator         User?        @relation(fields: [createdBy], references: [id], name: "createdGames")
-  participants    Participant[]
+  id                    Int          @id @default(autoincrement())
+  code                  String       @unique
+  status                String       @default("waiting") // waiting, in_progress, finished
+  createdAt             DateTime     @default(now())
+  startedAt             DateTime?
+  endedAt               DateTime?
+  maxPlayers            Int          @default(4)
+  currentPlayers        Int          @default(0)
+
+  // Game state
+  currentTurn           Int?         // userId of player whose turn it is
+  playerWithPower       Int?         // userId of player who has power (leads tricks)
+  turnOrder             Json?        // Array of userIds in play order
+
+  // Trick state
+  trickNumber           Int          @default(0)
+  firstTrickCompleted   Boolean      @default(false)
+  currentTrickLeader    Int?         // userId who led this trick
+  currentTrickSuit      String?      // Lead suit of current trick
+  currentTrickCards     Json?        // [{userId, card, order}] for current trick
+
+  // Card piles
+  wastePile             Json         @default("[]") // Discarded cards from clean tricks
+
+  // Relations
+  createdBy             Int?
+  creator               User?        @relation(fields: [createdBy], references: [id], name: "createdGames")
+  participants          Participant[]
 }
 
 model Participant {
-  id        Int       @id @default(autoincrement())
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  game      Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
-  gameId    Int
-  hand      Json
-  position  Int       // 0-3 for 4 players
-  isReady   Boolean   @default(false)
-  isWinner  Boolean?
-  rank      Int?
-  score     Int       @default(0)
-  joinedAt  DateTime  @default(now())
-  leftAt    DateTime?
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  game        Game      @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  gameId      Int
+  hand        Json
+  position    Int       // Player position in turn order
+  isReady     Boolean   @default(false)
+  hasFinished Boolean   @default(false) // Player has gotten away
+  rank        Int?      // Final rank (1 = winner, last = Bhabhi)
+  joinedAt    DateTime  @default(now())
+  leftAt      DateTime?
 
   @@unique([gameId, position])
   @@unique([gameId, userId])
