@@ -1,241 +1,329 @@
-FULL & AUTHORITATIVE PROMPT — BHABHI (TOCHOO / THULLA)
+# 🎴 Bhabhi - Game Rules
 
-Implement the traditional Indian card game “Bhabhi” (also called Tochoo/Thulla) using the following rules. This specification is the single source of truth. Do not assume any rules not explicitly stated here.
+> **Official specification for the traditional Indian card game**
+> This document is the authoritative source of truth. Implement exactly as specified—no additional rules or interpretations.
 
-1. Game Overview
+---
 
-Multiplayer, trick-based card game
+## 📋 Table of Contents
+- [Game Overview](#-game-overview)
+- [Players](#-players)
+- [Deck](#-deck)
+- [Dealing](#-dealing)
+- [Starting the Game](#-starting-the-game)
+- [Game Structure](#-game-structure)
+- [Core Gameplay](#-core-gameplay)
+  - [Leading a Trick](#leading-a-trick-power)
+  - [Following Suit](#following-suit)
+  - [First Trick Exception](#first-trick-exception-critical)
+  - [Tochoo Rule](#tochoo-thulla-rule)
+  - [Clean Trick](#clean-trick-no-tochoo)
+- [Finishing & Victory](#-finishing--victory)
+- [Shootout Mode](#-shootout-mode)
+- [End Game](#-end-game)
+- [Turn Flow](#-turn-flow-summary)
+- [Implementation Constraints](#-implementation-constraints)
 
-Goal: get rid of all cards
+---
 
-Players who finish successfully “get away”
+## 🎯 Game Overview
 
-The last remaining player is the Bhabhi (loser)
+**Bhabhi** is a multiplayer, trick-based card game where the goal is to get rid of all your cards.
 
-2. Players
+| Objective | Players who successfully empty their hand "get away" |
+|-----------|-----------------------------------------------------|
+| Loser     | The last remaining player is the **Bhabhi** (loser) |
+| Type      | Trick-taking, shedding game                         |
 
-Minimum: 2
+---
 
-Maximum: 8
+## 👥 Players
 
-Each player has:
+| Property | Value |
+|----------|-------|
+| Minimum  | 2     |
+| Maximum  | 8     |
 
-Player {
-  id: string
-  hand: Card[]
-  hasFinished: boolean
-  hasPower: boolean
+### Player Structure
+
+```typescript
+interface Player {
+  id: number;
+  hand: Card[];
+  hasFinished: boolean;
+  hasPower: boolean;
 }
+```
 
+> **Note:** Finished players are skipped from all future play.
 
-Finished players are skipped from all future play.
+---
 
-3. Deck
+## 🃏 Deck
 
-Standard 52-card deck
+- **Standard 52-card deck** (no jokers)
+- **Card ranking applies only within the same suit**
 
-No jokers
+### Card Structure
 
-Card {
-  suit: "spades" | "hearts" | "diamonds" | "clubs"
-  rank: 2–14  // J=11, Q=12, K=13, A=14
+```typescript
+interface Card {
+  suit: "spades" | "hearts" | "diamonds" | "clubs";
+  rank: 2–14;  // Jack=11, Queen=12, King=13, Ace=14
 }
+```
 
+---
 
-Card ranking applies only within the same suit.
+## 🔀 Dealing
 
-4. Dealing
+1. Shuffle the deck
+2. Deal **all cards** to players
+3. Unequal hand sizes are allowed (difference ≤ 1 card)
 
-Shuffle the deck
+---
 
-Deal all cards to players
+## 🚀 Starting the Game
 
-Unequal hand sizes are allowed (difference ≤ 1)
+### Mandatory First Move
 
-5. Starting the Game (Mandatory)
+| Rule | Description |
+|------|-------------|
+| Starter | The player holding the **Ace of Spades (♠A)** |
+| First Card | **Must** play ♠A as the lead card |
+| Restriction | No other opening move is allowed |
 
-The player holding the Ace of Spades (♠A) starts the game
+---
 
-They must play ♠A as the lead card of the first trick
+## 🎮 Game Structure
 
-No other opening move is allowed
+The game is played as a sequence of **tricks**.
 
-6. Game Structure
+### Trick Structure
 
-The game is played as a sequence of tricks
-
-Each trick has:
-
-Trick {
-  leaderId: playerId
-  leadSuit: Suit
-  playedCards: { playerId, card }[]
+```typescript
+interface Trick {
+  leaderId: number;      // Player who started the trick
+  leadSuit: Suit;        // The suit that must be followed
+  playedCards: TrickCard[];  // Cards played in this trick
 }
+```
 
-7. Leading a Trick (Power)
+---
 
-The player who has power leads the trick
+## 🎲 Core Gameplay
 
-Power means:
+### Leading a Trick (Power)
 
-You start the next trick
+The player with **power** leads the trick.
 
-The leader plays exactly one card
+**Power means:**
+- ✅ You start the next trick
+- ✅ Play exactly **one card**
+- ✅ That card's suit becomes the **lead suit**
 
-That card’s suit becomes the lead suit
+---
 
-8. Following Suit
+### Following Suit
 
-Turns proceed clockwise
+| Turn Order | Clockwise |
+|------------|-----------|
 
-Each active player must:
+**Each active player must:**
 
-Follow the lead suit if possible
+1. **Follow the lead suit if possible**
+2. **If no cards of lead suit:** Play any other card
+   - This is called a **tochoo** (थुल्ला) or **thulla**
 
-If they do not have the lead suit:
+> ⚠️ **No passing in this game**
 
-They must play any other card
+---
 
-This is called a tochoo / thulla
+### First Trick Exception (Critical)
 
-There is no passing in this game.
+```
+⚠️ EXCEPTION: The first trick ALWAYS completes fully
+```
 
-9. First Trick Exception (Critical)
+**Even if a tochoo is played:**
+- ✅ All players still play a card
+- ❌ The trick does NOT end early
 
-The first trick always completes fully
+> This exception applies **ONLY** to the first trick.
 
-Even if a tochoo is played:
+---
 
-All players still play a card
+### Tochoo (Thulla) Rule
 
-The trick does NOT end early
+**Applies from the second trick onward**
 
-This exception applies only to the first trick.
+#### When a Tochoo is Played
 
-10. Tochoo (Thulla) Rule — After First Trick
+```
+Player 1 (Leader): 5♠
+Player 2: 7♠
+Player 3: 2♣  ← TOCHOO! (different suit)
+Trick ends immediately
+```
 
-From the second trick onward:
+#### Resolution
 
-The moment a player plays a tochoo:
+1. ⏹️ **Trick ends immediately**
+2. 🚫 Remaining players do not participate
+3. 🔍 Determine the **highest card** of the lead suit played so far
+4. 👤 The player who played that card:
+   - 📥 Picks up all cards in the trick
+   - ➕ Adds them to their hand
+   - 👑 Keeps power
+   - ▶️ Leads the next trick
 
-The trick ends immediately
+> **Note:** Only the first tochoo matters; multiple tochoos in one trick are impossible.
 
-Remaining players do not participate
+---
 
-Resolution:
+### Clean Trick (No Tochoo)
 
-Determine the highest card of the lead suit played so far
+**If all players follow suit:**
 
-The player who played that card:
+1. 🔍 Determine the **highest card** in the lead suit
+2. 👤 That player:
+   - 👑 Gains power
+   - ▶️ Leads next trick
+3. 🗑️ All cards from the trick:
+   - Go to the **waste pile**
+   - Removed from active play
 
-Picks up all cards in the trick
+---
 
-Adds them to their hand
+## 🏆 Finishing & Victory
 
-Keeps power
+### Normal Play (More than 2 players left)
 
-Leads the next trick
+| Condition | Playing your last card |
+|-----------|------------------------|
+| Result    | ✅ Immediately get away |
+| Power     | ❌ Does NOT matter      |
+| Restriction | None                 |
 
-Only the first tochoo matters; multiple tochoos in one trick are impossible.
+```typescript
+player.hasFinished = true;
+```
 
-11. Clean Trick (No Tochoo)
+---
 
-If all players follow suit:
+## ⚔️ Shootout Mode
 
-Determine the highest card in the lead suit
+### Definition
 
-That player:
+Shootout begins when **exactly 2 active players** remain.
 
-Gains power
-
-All cards from the trick:
-
-Are placed into the waste pile
-
-Are removed from active play
-
-12. Waste Pile Invariant
-
-The waste pile may be empty before the first trick completes
-
-After the first trick completes, the waste pile is guaranteed to never be empty for the remainder of the game
-
-Any rule that draws from the waste pile is therefore always safe after trick 1
-
-13. Finishing & Getting Away
-
-When a player plays their last card, they attempt to get away
-
-Normal Play (More than 2 players left)
-
-A player immediately gets away
-
-Power does NOT matter
-
-No restriction applies
-
-player.hasFinished = true
-
-14. Shootout Mode (Exactly 2 Players Left)
-Definition
-
-Shootout begins when:
-
+```typescript
 activePlayers.length === 2
+```
 
-15. Power Restriction Rule (Shootout ONLY)
+### Power Restriction Rule (Shootout ONLY)
 
-This rule applies only during shootout
+> ⚠️ **This rule applies ONLY during shootout**
 
-Outside shootout, this rule does NOT apply
+#### If a player:
+1. ✅ Empties their hand
+2. **AND** ✅ Still has power
 
-If a player:
+#### Then they must:
+1. 🃏 Draw exactly **one card** from the waste pile
+2. ▶️ Immediately lead the next trick with that card
 
-Empties their hand
+> They may only get away when they finish **without holding power**.
 
-AND still has power
+### Waste Pile Invariant
 
-Then they must:
+| Before First Trick | May be empty ⚪ |
+|--------------------|----------------|
+| After First Trick  | Guaranteed non-empty ✅ |
 
-Draw exactly one card from the waste pile
+> Any rule that draws from the waste pile is always safe after trick 1.
 
-Immediately lead the next trick with that card
+---
 
-They may only get away when they finish without holding power.
+## 🏁 End Game
 
-17. End of Game
+The game ends when **one player remains**.
 
-The game ends when:
+| Result | Description |
+|--------|-------------|
+| Winners | All players who got away (n-1 players) |
+| Bhabhi  | The remaining/losing player |
 
-One player remains (normal)
+---
 
-That remaining / losing player is the Bhabhi.
+## 🔄 Turn Flow Summary
 
-18. Turn Flow Summary
-Find ♠A holder → play ♠A
-Resolve first trick fully
-WHILE game not ended:
-  Leader plays card
-  Players follow suit clockwise
-  IF tochoo (after trick 1):
-    end trick → pickup → leader continues
-  ELSE:
-    highest lead suit wins → discard to waste
-  Check finishing rules
-  Check shootout rules
+```mermaid
+graph TD
+    A[Find ♠A holder] --> B[Play ♠A]
+    B --> C[Resolve first trick fully]
+    C --> D{Game ended?}
+    D -->|No| E[Leader plays card]
+    E --> F[Players follow suit clockwise]
+    F --> G{Tochoo played?}
+    G -->|Yes, after trick 1| H[End trick → pickup → leader continues]
+    G -->|No| I[Highest lead suit wins → discard to waste]
+    H --> J[Check finishing rules]
+    I --> J
+    J --> K[Check shootout rules]
+    K --> D
+    D -->|Yes| L[Declare Bhabhi]
+```
 
-19. Implementation Constraints
+### Pseudocode
 
-No passing
+```typescript
+// 1. Find ♠A holder → play ♠A
+// 2. Resolve first trick fully
+WHILE (!gameEnded) {
+  // Leader plays card
+  // Players follow suit clockwise
 
-One card per turn
+  IF (tochoo && trickNumber > 1) {
+    // End trick → pickup → leader continues
+  } ELSE {
+    // Highest lead suit wins → discard to waste
+  }
 
-Finished players are skipped
+  // Check finishing rules
+  // Check shootout rules
+}
+```
 
-Waste pile is guaranteed non-empty after trick 1
+---
 
-No hidden rules, penalties, or bonuses
+## ⚙️ Implementation Constraints
 
-20. Final Instruction
+| Constraint | Description |
+|------------|-------------|
+| ❌ No passing | Players must always play a card |
+| 1️⃣ One card per turn | Exactly one card played per turn |
+| ⏭️ Skip finished players | Finished players are skipped from play |
+| 🗑️ Waste pile guarantee | Non-empty after trick 1 |
+| 🚫 No hidden rules | No penalties, bonuses, or undocumented features |
 
-Do not introduce any additional mechanics, interpretations, or variants. Implement exactly what is written above.
+---
+
+## 📝 Final Instruction
+
+> **Do not introduce any additional mechanics, interpretations, or variants.**
+> Implement exactly what is written in this specification.
+
+---
+
+## 📊 Quick Reference
+
+| Term | Definition |
+|------|------------|
+| **Bhabhi** | The loser (last remaining player) |
+| **Tochoo/Thulla** | Playing a card of different suit when you can't follow |
+| **Power** | The right to lead the next trick |
+| **Get Away** | Successfully emptying your hand and finishing the game |
+| **Clean Trick** | A trick where all players follow suit |
+| **Shootout** | The final phase when only 2 players remain |
+| **Waste Pile** | Discarded cards from clean tricks |
