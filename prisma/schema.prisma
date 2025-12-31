@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -21,6 +20,7 @@ model User {
   name              String
   email             String?   @unique
   avatarUrl         String?
+  authProvider      String?   // "email", "google", etc.
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
   lastPlayedAt      DateTime?
