@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import prisma from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { createDeck, dealCards, findAceOfSpadesHolder, cardsToStrings } from '@/lib/game/utils'
 
 export async function POST(
   request: NextRequest,
@@ -32,7 +33,9 @@ export async function POST(
     const game = await prisma.game.findUnique({
       where: { id: gameId },
       include: {
-        participants: true,
+        participants: {
+          orderBy: { position: 'asc' },
+        },
       },
     })
 
@@ -52,17 +55,74 @@ export async function POST(
       return NextResponse.json({ error: 'Need at least 2 players to start' }, { status: 400 })
     }
 
-    const allReady = game.participants.every((p: { isReady: boolean }) => p.isReady)
+    if (game.currentPlayers > 8) {
+      return NextResponse.json({ error: 'Maximum 8 players allowed' }, { status: 400 })
+    }
+
+    const allReady = game.participants.every(p => p.isReady)
     if (!allReady) {
       return NextResponse.json({ error: 'All players must be ready' }, { status: 400 })
     }
 
-    const updatedGame = await prisma.game.update({
+    // Initialize game: shuffle and deal cards
+    const deck = createDeck()
+    const hands = dealCards(deck, game.currentPlayers)
+
+    // Convert hands to players with Cards format for finding Ace of Spades
+    const playersWithHands = game.participants.map((p, index) => ({
+      id: p.userId,
+      hand: hands[index],
+    }))
+
+    // Find player with Ace of Spades (they start the game)
+    const firstPlayerId = findAceOfSpadesHolder(playersWithHands)
+
+    if (!firstPlayerId) {
+      return NextResponse.json({ error: 'Failed to find Ace of Spades holder' }, { status: 500 })
+    }
+
+    // Create turn order (clockwise from first player)
+    const turnOrder = game.participants.map(p => p.userId)
+
+    // Update game and participants in transaction
+    await prisma.$transaction(async (tx) => {
+      // Update each participant's hand
+      for (let i = 0; i < game.participants.length; i++) {
+        await tx.participant.update({
+          where: {
+            gameId_userId: {
+              gameId: gameId,
+              userId: game.participants[i].userId,
+            },
+          },
+          data: {
+            hand: cardsToStrings(hands[i]),
+            hasFinished: false,
+          },
+        })
+      }
+
+      // Update game state
+      await tx.game.update({
+        where: { id: gameId },
+        data: {
+          status: 'in_progress',
+          startedAt: new Date(),
+          currentTurn: firstPlayerId,
+          playerWithPower: firstPlayerId,
+          turnOrder: turnOrder,
+          trickNumber: 0,
+          firstTrickCompleted: false,
+          currentTrickLeader: null,
+          currentTrickSuit: null,
+          wastePile: [],
+        },
+      })
+    })
+
+    // Fetch updated game to return
+    const updatedGame = await prisma.game.findUnique({
       where: { id: gameId },
-      data: {
-        status: 'in_progress',
-        currentTurn: 0,
-      },
       include: {
         participants: {
           include: {
@@ -94,6 +154,7 @@ export async function POST(
 
     return NextResponse.json({ game: updatedGame }, { status: 200 })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('Error starting game:', error)
+    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 })
   }
 }
