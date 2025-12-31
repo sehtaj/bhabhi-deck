@@ -35,7 +35,7 @@ export function CopyButton({
         setCopied(false);
       }, successDuration);
     } catch (err) {
-      console.error('Failed to copy text:', err);
+      // Failed to copy - clipboard API might not be available
     }
   };
 

@@ -32,7 +32,6 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error: any) {
-    console.error('[CHECK-PROVIDER] Error:', error)
     return NextResponse.json(
       { error: error.message || 'Failed to check provider' },
       { status: 500 }

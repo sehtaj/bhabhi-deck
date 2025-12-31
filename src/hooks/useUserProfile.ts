@@ -38,7 +38,6 @@ export function useUserProfile() {
         setProfile(data.user)
         setError(null)
       } catch (err) {
-        console.error('Error fetching user profile:', err)
         setError(err instanceof Error ? err.message : 'Unknown error')
       } finally {
         setLoading(false)

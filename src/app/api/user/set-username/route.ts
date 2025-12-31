@@ -65,7 +65,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ user }, { status: 200 })
   } catch (error: any) {
-    console.error('Error setting username:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
