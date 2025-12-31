@@ -29,7 +29,7 @@ export default function RoomContent() {
   // Redirect to play when game starts
   useEffect(() => {
     if (game && game.status === 'in_progress') {
-      router.push('/play');
+      router.push(`/play?gameId=${game.id}`);
     }
   }, [game, router]);
 
