@@ -14,6 +14,7 @@ export interface Participant {
   isReady: boolean
   hasFinished: boolean
   hand: string[]
+  isWinner: boolean | null
   rank: number | null
   user: User
 }
@@ -35,6 +36,7 @@ export interface Game {
   wastePile: string[]
   createdBy: number
   createdAt: Date | string
+  updatedAt: Date | string
   participants: Participant[]
   creator: User
 }
