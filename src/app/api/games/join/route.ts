@@ -51,13 +51,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user is already in the game
-    const existingParticipant = game.participants.find((p) => p.userId === user.id)
+    const existingParticipant = game.participants.find((p: { userId: number }) => p.userId === user.id)
     if (existingParticipant) {
       return NextResponse.json({ error: 'You are already in this game' }, { status: 400 })
     }
 
     // Find the next available position
-    const occupiedPositions = game.participants.map((p) => p.position)
+    const occupiedPositions = game.participants.map((p: { position: number }) => p.position)
     let nextPosition = 0
     for (let i = 0; i < game.maxPlayers; i++) {
       if (!occupiedPositions.includes(i)) {
@@ -105,7 +105,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ game: updatedGame }, { status: 200 })
   } catch (error: any) {
-    console.error('Error joining game:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

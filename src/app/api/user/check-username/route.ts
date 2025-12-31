@@ -22,7 +22,6 @@ export async function GET() {
       userId: user?.id,
     }, { status: 200 })
   } catch (error: any) {
-    console.error('Error checking username:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

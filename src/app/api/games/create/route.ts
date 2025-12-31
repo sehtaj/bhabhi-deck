@@ -108,7 +108,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ game }, { status: 201 })
   } catch (error: any) {
-    console.error('Error creating game:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }

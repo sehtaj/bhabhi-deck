@@ -94,7 +94,6 @@ function LoginForm() {
 
     try {
       const callbackUrl = `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`
-      console.log('[LOGIN] Google OAuth redirect URL:', callbackUrl)
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
