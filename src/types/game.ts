@@ -12,8 +12,8 @@ export interface Participant {
   gameId: number
   position: number
   isReady: boolean
+  hasFinished: boolean
   hand: string[]
-  isWinner: boolean | null
   rank: number | null
   user: User
 }
@@ -24,12 +24,17 @@ export interface Game {
   status: 'waiting' | 'in_progress' | 'finished'
   currentPlayers: number
   maxPlayers: number
-  deck: string[]
-  discardPile: string[]
   currentTurn: number | null
+  playerWithPower: number | null
+  turnOrder: number[] | null
+  trickNumber: number
+  firstTrickCompleted: boolean
+  currentTrickLeader: number | null
+  currentTrickSuit: string | null
+  currentTrickCards: any[] | null
+  wastePile: string[]
   createdBy: number
   createdAt: Date | string
-  updatedAt: Date | string
   participants: Participant[]
   creator: User
 }
