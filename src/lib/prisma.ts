@@ -9,9 +9,9 @@ const getDatabaseUrl = () => {
   const url = process.env.DATABASE_URL;
   if (!url) return url;
 
-  // Add pgbouncer=true to disable prepared statements in development
-  // This prevents "prepared statement already exists" errors during hot-reload
-  if (process.env.NODE_ENV === "development" && !url.includes("pgbouncer=true")) {
+  // Add pgbouncer=true to disable prepared statements when using connection pooler
+  // Required for Supabase pooler in both development and production
+  if (!url.includes("pgbouncer=true")) {
     const separator = url.includes("?") ? "&" : "?";
     return `${url}${separator}pgbouncer=true`;
   }

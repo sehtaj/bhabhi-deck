@@ -62,6 +62,10 @@ model Game {
   createdBy             Int?
   creator               User?        @relation(fields: [createdBy], references: [id], name: "createdGames")
   participants          Participant[]
+
+  @@index([status])
+  @@index([createdBy])
+  @@index([currentTurn])
 }
 
 model Participant {
@@ -80,6 +84,8 @@ model Participant {
 
   @@unique([gameId, position])
   @@unique([gameId, userId])
+  @@index([userId])
+  @@index([gameId])
 }
 
 model UserStats {
