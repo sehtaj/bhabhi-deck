@@ -35,16 +35,40 @@ function LoginForm() {
           },
         })
 
-        if (error) throw error
+        if (error) {
+          // Handle case where user already exists with OAuth
+          if (error.message?.includes('User already registered')) {
+            throw new Error('This email is already registered. If you signed up with Google, please use "Continue with Google" to sign in.')
+          }
+          throw error
+        }
 
         setMessage('Check your email for the confirmation link!')
       } else {
+        // First, check if user exists and their auth provider
+        const providerCheckResponse = await fetch('/api/auth/check-provider', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        })
+        const providerData = await providerCheckResponse.json()
+        // If user exists with OAuth provider, show specific message
+        if (providerData.exists && providerData.authProvider === 'google') {
+          throw new Error('This email is already registered with Google. Please use "Continue with Google" to sign in.')
+        }
+
         const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
         })
 
-        if (error) throw error
+        if (error) {
+          // If user exists but has no password (likely OAuth user with null authProvider)
+          if (error.message?.includes('Invalid login credentials') && providerData.exists) {
+            throw new Error('This email is already registered. If you signed up with Google, please use "Continue with Google" to sign in.')
+          }
+          throw error
+        }
 
         // Check if user needs to set up username
         const checkResponse = await fetch('/api/user/check-username')
@@ -69,10 +93,13 @@ function LoginForm() {
     setError(null)
 
     try {
+      const callbackUrl = `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`
+      console.log('[LOGIN] Google OAuth redirect URL:', callbackUrl)
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?redirectTo=${redirectTo}`,
+          redirectTo: callbackUrl,
         },
       })
 
